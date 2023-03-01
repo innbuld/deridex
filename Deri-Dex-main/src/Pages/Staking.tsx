@@ -106,18 +106,18 @@ const Staking = () => {
 
                     <RoundBox style={{background: 'rgb(59, 60, 78)', flex: 1, width: '-webkit-fill-available', maxWidth: '300px', minWidth: '300px'}}>
                         <OneRow style={{justifyContent: 'flex-start'}}>
-                            <LPToken token1='usdc' token2='busd' />
-                            <Typography style={{marginLeft: 20, fontWeight: 600}}>USDC - BUSD LP</Typography>
+                            <LPToken token1='deri' token2='usdc' />
+                            <Typography style={{marginLeft: 20, fontWeight: 600}}>DERI - USDC LP</Typography>
                         </OneRow>
                         <OneRow style={{justifyContent: 'space-between', marginTop: 20, padding: '0 20px'}}>
                             <Box>
-                                <Typography style={{fontSize: 24, fontWeight: 700}}>600.00%</Typography>
-                                <Typography style={{fontSize: 14, fontWeight: 700}}>USDC APR</Typography>
+                                <Typography style={{fontSize: 24, fontWeight: 700}}>200.00%</Typography>
+                                <Typography style={{fontSize: 14, fontWeight: 700}}>DERI APR</Typography>
                             </Box>
                             <Typography style={{fontSize: 40, fontWeight: 700}}>/</Typography>
                             <Box>
                                 <Typography style={{fontSize: 24, fontWeight: 700}}>35.07%</Typography>
-                                <Typography style={{fontSize: 14, fontWeight: 700}}>BUSD APR</Typography>
+                                <Typography style={{fontSize: 14, fontWeight: 700}}>USDC APR</Typography>
                             </Box>
                         </OneRow>
                         <OneRow style={{justifyContent: 'space-between', marginTop: 20}}>
@@ -144,12 +144,12 @@ const Staking = () => {
                             </OneRow>
                         </OneRow>
                         <OneRow style={{marginTop: 30, justifyContent: 'space-between', flexWrap: 'wrap', gap: 10}}>
+                            <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeDeri</BlueButton>
                             <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeUSDC</BlueButton>
-                            <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeBUSD</BlueButton>
                         </OneRow>
                     </RoundBox>
 
-                    <RoundBox style={{background: 'rgb(59, 60, 78)', flex: 1, width: '-webkit-fill-available', maxWidth: '300px', minWidth: '300px'}}>
+                    {/* <RoundBox style={{background: 'rgb(59, 60, 78)', flex: 1, width: '-webkit-fill-available', maxWidth: '300px', minWidth: '300px'}}>
                         <OneRow style={{justifyContent: 'flex-start'}}>
                             <LPToken token1='deri' token2='busd' />
                             <Typography style={{marginLeft: 20, fontWeight: 600}}>Deri - BUSD LP</Typography>
@@ -187,7 +187,7 @@ const Staking = () => {
                             <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeUSDC</BlueButton>
                             <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeBUSD</BlueButton>
                         </OneRow>
-                    </RoundBox>
+                    </RoundBox> */}
 
                     {/* <RoundBox style={{background: 'rgb(59, 60, 78)', flex: 1, width: '-webkit-fill-available', maxWidth: '300px', minWidth: '300px'}}>
                         <OneRow style={{justifyContent: 'flex-start'}}>
@@ -282,7 +282,7 @@ const Staking = () => {
                     <RoundBox style={{background: 'rgb(59, 60, 78)', flex: 1, width: '-webkit-fill-available', maxWidth: '300px', minWidth: '300px'}}>
                         <OneRow style={{justifyContent: 'flex-start'}}>
                             <LPToken token1='deri' token2='ethr' />
-                            <Typography style={{marginLeft: 20, fontWeight: 600}}>Deri - ETH LP</Typography>
+                            <Typography style={{marginLeft: 20, fontWeight: 600}}>Deri - WETH LP</Typography>
                         </OneRow>
                         <OneRow style={{justifyContent: 'space-between', marginTop: 20, padding: '0 20px'}}>
                             <Box>
@@ -292,7 +292,7 @@ const Staking = () => {
                             <Typography style={{fontSize: 40, fontWeight: 700}}>/</Typography>
                             <Box>
                                 <Typography style={{fontSize: 24, fontWeight: 700}}>15.07%</Typography>
-                                <Typography style={{fontSize: 14, fontWeight: 700}}>ETH APR</Typography>
+                                <Typography style={{fontSize: 14, fontWeight: 700}}>WETH APR</Typography>
                             </Box>
                         </OneRow>
                         <OneRow style={{justifyContent: 'space-between', marginTop: 20}}>
@@ -320,7 +320,7 @@ const Staking = () => {
                         </OneRow>
                         <OneRow style={{marginTop: 30, justifyContent: 'space-between', flexWrap: 'wrap', gap: 10}}>
                             <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeDeri</BlueButton>
-                            <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeETH</BlueButton>
+                            <BlueButton style={{width: '-webkit-fill-available', textAlign: 'center', flex: 1}}>StakeWETH</BlueButton>
                         </OneRow>
                     </RoundBox>
                 </OneRow>

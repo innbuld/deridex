@@ -8,13 +8,33 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import LogoutIcon from '@mui/icons-material/Logout';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import UAuth from '@uauth/js';
 
 interface SidebarProps {
     mode?: string;
 }
 
+
 const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
-    const { account, logout, login } = useAuth();
+    const { account, logout, login, logon, loggout } = useAuth();
+    function Log(){
+        const uauth = new UAuth({
+            clientID: "2930f030-eda8-40d8-a5b5-c2c93505e936",
+            redirectUri: "https://derio.vercel.app",
+            scope: "openid wallet email social:optional social:telegram:optional social:twitter:optional"
+          })
+
+          const logon = () =>{
+            uauth.loginWithPopup().then((authorization)=>{console.log(authorization)})
+          }
+
+          const loggout = () =>{
+            uauth.logout()
+          }
+
+
+
+    }
     const [open, setOpen] = useState(false)
     const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -71,6 +91,7 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                     <Typography onClick={() => {navigate('/staking')}} style={{color: 'white', marginLeft: 30, fontSize: 14, fontWeight: 600, cursor: 'pointer'}}>Liquidity</Typography>
                 </DesktopMenu>
             </Box>
+            
             <ConnectWallet>
                 <img onClick={() => {navigate('/')}} src="img/deri.png" style={{height: 35, marginRight: 20, cursor: 'pointer'}} alt="logo" />
                 {props.mode === "staking" && !account &&
@@ -101,6 +122,37 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                     </Box>
                 }
             </ConnectWallet>
+
+            <Logg>
+                
+                {props.mode === "staking" && !account &&
+                    <BlueButton onClick={logon} style={{fontSize: 13, fontWeight: 400}}>Login With Unstoppable</BlueButton>
+                }
+                {props.mode === "staking" && account &&
+                    <Box display="flex" fontSize="15px" alignItems="center" style={{ cursor: 'pointer' }} position="relative" onClick={() => { setOpen(!open) }}>
+                        {/* <Box style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '-webkit-fill-available'}}>
+                            <WalletInfo style={{cursor: 'pointer'}}>
+                                <DotComponent style={{marginLeft: 15}}></DotComponent>
+                                <Typography style={{padding: '0 15px 0 5px'}}>BSC</Typography>
+                                <WalletInfo style={{background: 'rgb(59, 60, 78)', padding: '5px 10px'}}>{shortAddr(account || "")}</WalletInfo>
+                            </WalletInfo>
+                        </Box> */}
+                        {/* <Box position="absolute" color="white" display={open ? "flex" : "none"} alignItems="flex-start" flexDirection="column" borderRadius="6px" p="1vw" pr="1.5vw" right="0%" width="95%" boxShadow="5px 4px 13px 7px #000000" top="calc(100% + 1vw)" bgcolor="rgb(44, 45, 58)" zIndex={10}>
+                            <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} onClick={copyAddress} startIcon={<ContentCopyIcon />}>Copy Address</Box>
+                            <MuiButton
+                                color="inherit"
+                                style={{ textTransform: 'none' }}
+                                startIcon={<OpenInNewIcon />}
+                                href={`https://bscscan.com/address/${account}`}
+                                target="_blank"
+                            >
+                                View on Explorer
+                            </MuiButton>
+                            <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} startIcon={<LogoutIcon />} onClick={logout} >Disconnect</Box>
+                        </Box> */}
+                    </Box>
+                }
+            </Logg>
         </Box>
     </Box>
 }
@@ -117,6 +169,15 @@ const BlueButton = styled(Box)`
         cursor: pointer;
     }
 `;
+
+
+
+
+
+
+
+     
+
 const DotComponent = styled(Box)`
     border-radius: 50%;
     background: rgb(83, 243, 195);
@@ -168,6 +229,17 @@ const Logo = styled(Box)`
     }
 `;
 const ConnectWallet = styled(Box)`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 480px;
+    @media (max-width: 450px) {
+        // display: none;
+    }
+`;
+
+
+const Logg = styled(Box)`
     display: flex;
     justify-content: flex-end;
     align-items: center;

@@ -6,6 +6,7 @@ import { useAppDispatch } from '../app/hooks';
 import { setderiAmtInWallet, setbnbAmtInWallet } from '../actions/ToggleMode';
 import { getBalance, getBNB } from './useTokenInfo';
 import { DERI_TOKEN_ADDR } from './tokenAddress';
+import UAuth from '@uauth/js';
 
 export const FTM_MAIN_ID = 250;
 export const AVAX_MAIN_ID = 43114;
@@ -22,12 +23,17 @@ interface UserAuthProps{
   account: string;
   login: ()=>Promise<void>
   logout: () => void
+  logon: () => void
+  loggout: () => void
+  
 }
 
 const defaultVal:UserAuthProps = {
   account: "",
   login: async()=>{},
-  logout: () => {}
+  logout: () => {},
+  logon: () => {},
+  loggout: () => {}
 }
 
 export const UserAuthContext = React.createContext<UserAuthProps>(defaultVal)
@@ -101,6 +107,21 @@ export function UserAuthProvider({ children }: UserAuthProviderProps): JSX.Eleme
     setWeb3Modal(web3Modal)
   }
 
+  const uauth = new UAuth({
+    clientID: "2930f030-eda8-40d8-a5b5-c2c93505e936",
+  redirectUri: "https://derio.vercel.app",
+  scope: "openid wallet email social:optional social:telegram:optional social:twitter:optional"
+
+  })
+
+  const logon = () =>{
+    uauth.loginWithPopup().then((authorization)=>{console.log(authorization)})
+  }
+
+  const loggout = () =>{
+    uauth.logout()
+  }
+
   const logout = async() => {
     if(!web3Modal) return;
     web3Modal.clearCachedProvider()
@@ -112,7 +133,7 @@ export function UserAuthProvider({ children }: UserAuthProviderProps): JSX.Eleme
     dispatch(setbnbAmtInWallet('Loading'));
   }
 
-  return <UserAuthContext.Provider value={{account, login, logout}} children={children}  />;
+  return <UserAuthContext.Provider value={{account, login, logout, logon, loggout}} children={children}  />;
 }
 
 

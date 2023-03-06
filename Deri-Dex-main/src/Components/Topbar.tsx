@@ -130,15 +130,15 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                 }
                 {props.mode === "staking" && account &&
                     <Box display="flex" fontSize="15px" alignItems="center" style={{ cursor: 'pointer' }} position="relative" onClick={() => { setOpen(!open) }}>
-                        {/* <Box style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '-webkit-fill-available'}}>
+                        <Box style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '-webkit-fill-available'}}>
                             <WalletInfo style={{cursor: 'pointer'}}>
                                 <DotComponent style={{marginLeft: 15}}></DotComponent>
                                 <Typography style={{padding: '0 15px 0 5px'}}>BSC</Typography>
                                 <WalletInfo style={{background: 'rgb(59, 60, 78)', padding: '5px 10px'}}>{shortAddr(account || "")}</WalletInfo>
                             </WalletInfo>
-                        </Box> */}
-                        {/* <Box position="absolute" color="white" display={open ? "flex" : "none"} alignItems="flex-start" flexDirection="column" borderRadius="6px" p="1vw" pr="1.5vw" right="0%" width="95%" boxShadow="5px 4px 13px 7px #000000" top="calc(100% + 1vw)" bgcolor="rgb(44, 45, 58)" zIndex={10}>
-                            <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} onClick={copyAddress} startIcon={<ContentCopyIcon />}>Copy Address</Box>
+                        </Box>
+                        <Box position="absolute" color="white" display={open ? "flex" : "none"} alignItems="flex-start" flexDirection="column" borderRadius="6px" p="1vw" pr="1.5vw" right="0%" width="95%" boxShadow="5px 4px 13px 7px #000000" top="calc(100% + 1vw)" bgcolor="rgb(44, 45, 58)" zIndex={10}>
+                            {/* <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} onClick={copyAddress} startIcon={<ContentCopyIcon />}>Copy Address</Box>
                             <MuiButton
                                 color="inherit"
                                 style={{ textTransform: 'none' }}
@@ -147,9 +147,9 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                                 target="_blank"
                             >
                                 View on Explorer
-                            </MuiButton>
-                            <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} startIcon={<LogoutIcon />} onClick={logout} >Disconnect</Box>
-                        </Box> */}
+                            </MuiButton> */}
+                            <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} startIcon={<LogoutIcon />} onClick={loggout} >Log Out</Box>
+                        </Box>
                     </Box>
                 }
             </Logg>
@@ -230,9 +230,10 @@ const Logo = styled(Box)`
 `;
 const ConnectWallet = styled(Box)`
     display: flex;
+    md: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-left: 480px;
+    margin-left: 30px;
     @media (max-width: 450px) {
         // display: none;
     }

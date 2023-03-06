@@ -17,6 +17,12 @@ interface SidebarProps {
 
 const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
     const { account, logout, login, logon, loggout } = useAuth();
+    const [isLoggedin, setIsLoggedin] = useState(false);
+
+
+    
+
+
     function Log(){
         const uauth = new UAuth({
             clientID: "2930f030-eda8-40d8-a5b5-c2c93505e936",
@@ -26,10 +32,12 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
 
           const logon = () =>{
             uauth.loginWithPopup().then((authorization)=>{console.log(authorization)})
+            setIsLoggedin (true);
           }
 
           const loggout = () =>{
             uauth.logout()
+            setIsLoggedin(false);
           }
 
 

@@ -107,6 +107,8 @@ export function UserAuthProvider({ children }: UserAuthProviderProps): JSX.Eleme
     setWeb3Modal(web3Modal)
   }
 
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
   const uauth = new UAuth({
     clientID: "2930f030-eda8-40d8-a5b5-c2c93505e936",
   redirectUri: "https://derio.vercel.app",
@@ -116,10 +118,12 @@ export function UserAuthProvider({ children }: UserAuthProviderProps): JSX.Eleme
 
   const logon = () =>{
     uauth.loginWithPopup().then((authorization)=>{console.log(authorization)})
+    setIsLoggedin (true);
   }
 
   const loggout = () =>{
     uauth.logout()
+    setIsLoggedin(false);
   }
 
   const logout = async() => {

@@ -100,7 +100,7 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                 </DesktopMenu>
             </Box>
             
-            <ConnectWallet>
+            {/* <ConnectWallet>
                 <img onClick={() => {navigate('/')}} src="img/deri.png" style={{height: 35, marginRight: 20, cursor: 'pointer'}} alt="logo" />
                 {props.mode === "staking" && !account &&
                     <BlueButton onClick={login} style={{fontSize: 13, fontWeight: 400}}>Connect Wallet</BlueButton>
@@ -129,7 +129,7 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                         </Box>
                     </Box>
                 }
-            </ConnectWallet>
+            </ConnectWallet> */}
 
             <Logg>
                 
@@ -161,6 +161,10 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                     </Box>
                 }
             </Logg>
+
+            <BleButton onClick={loggout} style={{fontSize: 13, fontWeight: 400}}>
+                <Typography>Log Out</Typography>
+            </BleButton>
         </Box>
     </Box>
 }
@@ -171,6 +175,19 @@ const BlueButton = styled(Box)`
     width: -webkit-fill-available;
     text-align: center;
     padding: 5px 10px;
+    :hover {
+        color: rgb(1, 119, 251);
+        background: white;
+        cursor: pointer;
+    }
+`;
+
+const BleButton = styled(Box)`
+    border-radius: 7px;
+    background: rgb(1, 119, 251);
+    width: ;
+    text-align: center;
+    padding: 5px 1px;
     :hover {
         color: rgb(1, 119, 251);
         background: white;
@@ -252,7 +269,7 @@ const Logg = styled(Box)`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-left: 30px;
+    margin-left: 480px;
     @media (max-width: 450px) {
         // display: none;
     }

@@ -5,12 +5,15 @@ import { UserAuthProvider } from './hooks/useAuth'
 
 const Providers: React.FC = ({ children }) => {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    // <Web3ReactProvider getLibrary={getLibrary}>
       <UserAuthProvider>
         {children}
       </UserAuthProvider>
-    </Web3ReactProvider>
+   
   )
 }
 
 export default Providers
+
+
+ {/* </Web3ReactProvider> */}

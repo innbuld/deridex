@@ -3,65 +3,54 @@ import { Box, Typography, Button as MuiButton } from "@mui/material";
 import { FC, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { shortAddr } from "../utils/calculation";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import LogoutIcon from '@mui/icons-material/Logout';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import LogoutIcon from "@mui/icons-material/Logout";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import UAuth from '@uauth/js';
+import UAuth from "@uauth/js";
 
 interface SidebarProps {
-    mode?: string;
+  mode?: string;
 }
 
-
 const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
-    const { account, logout, login, logon, loggout } = useAuth();
-    const [isLoggedin, setIsLoggedin] = useState(false);
+  const { account, logout, login, logon, loggout, isLoggedin } = useAuth();
 
+ 
+  const [open, setOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
-    
+  const navigate = useNavigate();
 
+  const copyAddress = () => {
+    navigator.clipboard.writeText(account || "");
+  };
 
-    function Log(){
-        const uauth = new UAuth({
-            clientID: "2930f030-eda8-40d8-a5b5-c2c93505e936",
-            redirectUri: "https://derio.vercel.app",
-            scope: "openid wallet email social:optional social:telegram:optional social:twitter:optional"
-          })
-
-          const logon = () =>{
-            uauth.loginWithPopup().then((authorization)=>{console.log(authorization)})
-            setIsLoggedin (true);
-          }
-
-          const loggout = () =>{
-            uauth.logout()
-            setIsLoggedin(false);
-          }
-
-
-
-    }
-    const [open, setOpen] = useState(false)
-    const [mobileMenu, setMobileMenu] = useState(false);
-
-    const navigate = useNavigate();
-
-    const copyAddress = () => {
-        navigator.clipboard.writeText(account || "")
-    }
-
-    return <Box position="fixed" width="-webkit-fill-available" zIndex="20" style={{top: 0, left: 0}}>
+  return (
+    <Box
+      position="fixed"
+      width="-webkit-fill-available"
+      zIndex="20"
+      style={{ top: 0, left: 0 }}
+    >
+      <Box
+        display="flex"
+        alignItems="center"
+        py="5px"
+        px={2}
+        bgcolor="rgb(26, 27, 35)"
+        width="-webkit-fill-available"
+        justifyContent={"space-between"}
+        zIndex="20"
+      >
         <Box
-            display="flex"
-            alignItems="center"
-            py="5px"
-            px={2}
-            bgcolor="rgb(26, 27, 35)"
-            width="-webkit-fill-available"
-            justifyContent={'space-between'}
-            zIndex="20"
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            zIndex: 10,
+          }}
         >
             <Box style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', zIndex: 10}}>
                 <Box style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '-webkit-fill-available'}}>
@@ -100,7 +89,7 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                 </DesktopMenu>
             </Box>
             
-            {/* <ConnectWallet>
+            <ConnectWallet>
                 <img onClick={() => {navigate('/')}} src="img/deri.png" style={{height: 35, marginRight: 20, cursor: 'pointer'}} alt="logo" />
                 {props.mode === "staking" && !account &&
                     <BlueButton onClick={login} style={{fontSize: 13, fontWeight: 400}}>Connect Wallet</BlueButton>
@@ -129,24 +118,68 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                         </Box>
                     </Box>
                 }
-            </ConnectWallet> */}
+            </ConnectWallet>
 
-            <Logg>
-                
-                {props.mode === "staking" && !account &&
-                    <BlueButton onClick={logon} style={{fontSize: 13, fontWeight: 400}}>Login With Unstoppable</BlueButton>
-                }
-                {props.mode === "staking" && account &&
-                    <Box display="flex" fontSize="15px" alignItems="center" style={{ cursor: 'pointer' }} position="relative" onClick={() => { setOpen(!open) }}>
-                        <Box style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '-webkit-fill-available'}}>
-                            <WalletInfo style={{cursor: 'pointer'}}>
-                                <DotComponent style={{marginLeft: 15}}></DotComponent>
-                                <Typography style={{padding: '0 15px 0 5px'}}>BSC</Typography>
-                                <WalletInfo style={{background: 'rgb(59, 60, 78)', padding: '5px 10px'}}>{shortAddr(account || "")}</WalletInfo>
-                            </WalletInfo>
-                        </Box>
-                        <Box position="absolute" color="white" display={open ? "flex" : "none"} alignItems="flex-start" flexDirection="column" borderRadius="6px" p="1vw" pr="1.5vw" right="0%" width="95%" boxShadow="5px 4px 13px 7px #000000" top="calc(100% + 1vw)" bgcolor="rgb(44, 45, 58)" zIndex={10}>
-                            {/* <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} onClick={copyAddress} startIcon={<ContentCopyIcon />}>Copy Address</Box>
+        <Logg>
+          {props.mode === "staking" && !account && (
+            <BlueButton
+              onClick={logon}
+              style={{ fontSize: 13, fontWeight: 400 }}
+            >
+              Login With Unstoppable
+            </BlueButton>
+          )}
+          {props.mode === "staking" && account && (
+            <Box
+              display="flex"
+              fontSize="15px"
+              alignItems="center"
+              style={{ cursor: "pointer" }}
+              position="relative"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  width: "-webkit-fill-available",
+                }}
+              >
+                <WalletInfo style={{ cursor: "pointer" }}>
+                  <DotComponent style={{ marginLeft: 15 }}></DotComponent>
+                  <Typography style={{ padding: "0 15px 0 5px" }}>
+                    BSC
+                  </Typography>
+                  <WalletInfo
+                    style={{
+                      background: "rgb(59, 60, 78)",
+                      padding: "5px 10px",
+                    }}
+                  >
+                    {shortAddr(account || "")}
+                  </WalletInfo>
+                </WalletInfo>
+              </Box>
+              <Box
+                position="absolute"
+                color="white"
+                display={open ? "flex" : "none"}
+                alignItems="flex-start"
+                flexDirection="column"
+                borderRadius="6px"
+                p="1vw"
+                pr="1.5vw"
+                right="0%"
+                width="95%"
+                boxShadow="5px 4px 13px 7px #000000"
+                top="calc(100% + 1vw)"
+                bgcolor="rgb(44, 45, 58)"
+                zIndex={10}
+              >
+                {/* <Box component={MuiButton} color="white" style={{ textTransform: 'none' }} onClick={copyAddress} startIcon={<ContentCopyIcon />}>Copy Address</Box>
                             <MuiButton
                                 color="inherit"
                                 style={{ textTransform: 'none' }}
@@ -161,25 +194,22 @@ const Topbar: FC<SidebarProps> = (props: SidebarProps) => {
                     </Box>
                 }
             </Logg>
-
-            <BleButton onClick={loggout} style={{fontSize: 13, fontWeight: 400}}>
-                <Typography>Log Out</Typography>
-            </BleButton>
         </Box>
     </Box>
-}
+  );
+};
 
 const BlueButton = styled(Box)`
-    border-radius: 7px;
-    background: rgb(1, 119, 251);
-    width: -webkit-fill-available;
-    text-align: center;
-    padding: 5px 10px;
-    :hover {
-        color: rgb(1, 119, 251);
-        background: white;
-        cursor: pointer;
-    }
+  border-radius: 7px;
+  background: rgb(1, 119, 251);
+  width: -webkit-fill-available;
+  text-align: center;
+  padding: 5px 10px;
+  :hover {
+    color: rgb(1, 119, 251);
+    background: white;
+    cursor: pointer;
+  }
 `;
 
 const BleButton = styled(Box)`
@@ -195,67 +225,69 @@ const BleButton = styled(Box)`
     }
 `;
 
-
-
-
-
-
-
-     
-
 const DotComponent = styled(Box)`
-    border-radius: 50%;
-    background: rgb(83, 243, 195);
-    width: 5px;
-    height: 5px;
+  border-radius: 50%;
+  background: rgb(83, 243, 195);
+  width: 5px;
+  height: 5px;
 `;
 const WalletInfo = styled(Box)`
-    display: flex;
-    align-items: center;
-    border-radius: 20px;
-    background: rgb(44, 45, 58);
-    color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background: rgb(44, 45, 58);
+  color: white;
 `;
 const MobileLogo = styled(Box)`
-    position: relative;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
-    >img:last-child {
-        position: absolute;
-        top: 30px;
-        left: calc(100% - 20px);
-    }
+  position: relative;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  > img:last-child {
+    position: absolute;
+    top: 30px;
+    left: calc(100% - 20px);
+  }
 `;
 const MobileMenuBox = styled(Box)`
-    background: #212121fa;
-    padding: 20px;
-    position: absolute;
-    width: calc(70vw);
-    height: 100vh;
-    top: -15px;
-    left: -40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    >p:hover {
-        color: yellow !important;
-    }
+  background: #212121fa;
+  padding: 20px;
+  position: absolute;
+  width: calc(70vw);
+  height: 100vh;
+  top: -15px;
+  left: -40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  > p:hover {
+    color: yellow !important;
+  }
 `;
 const Logo = styled(Box)`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
-    >p {
-        @media (max-width: 570px) {
-            display: none;
-        }
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  > p {
+    @media (max-width: 570px) {
+      display: none;
     }
+  }
 `;
 const ConnectWallet = styled(Box)`
+  display: flex;
+  md: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 30px;
+  @media (max-width: 450px) {
+    // display: none;
+  }
+`;
+
+const Logg = styled(Box)`
     display: flex;
-    md: flex;
     justify-content: flex-end;
     align-items: center;
     margin-left: 30px;
@@ -264,37 +296,26 @@ const ConnectWallet = styled(Box)`
     }
 `;
 
-
-const Logg = styled(Box)`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-left: 480px;
-    @media (max-width: 450px) {
-        // display: none;
-    }
+const DesktopMenu = styled(Box)`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  white-space: nowrap;
+  @media (max-width: 888px) {
+    display: none;
+  }
+  > p:hover {
+    color: yellow !important;
+  }
 `;
 
-const DesktopMenu = styled(Box)`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    white-space: nowrap;
-	@media (max-width: 888px) {
-		display: none;
-	}
-    >p:hover {
-        color: yellow !important;
-    }
-`
-
 const MobileMenu = styled(Box)`
-    padding-bottom: 4px;
-    position: relative;
-    margin-right: 30px;
-	@media (min-width: 888px) {
-		display: none;
-	}
-`
+  padding-bottom: 4px;
+  position: relative;
+  margin-right: 30px;
+  @media (min-width: 888px) {
+    display: none;
+  }
+`;
 
 export default Topbar;
